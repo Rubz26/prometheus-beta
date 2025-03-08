@@ -38,7 +38,7 @@ def test_no_palindromes():
 def test_palindrome_with_different_case():
     """Test that palindromes are case-sensitive."""
     result = find_palindrome_substrings("Aba")
-    assert set(result) == {"A", "a", "b", "Aba"}
+    assert set(result) == {"A", "a", "b"}
 
 def test_large_palindrome():
     """Test a long palindrome."""
