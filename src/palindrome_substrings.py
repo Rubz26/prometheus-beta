@@ -39,4 +39,4 @@ def find_palindrome_substrings(s):
             left -= 1
             right += 1
     
-    return list(palindromes)
+    return list(sorted(palindromes, key=len))
