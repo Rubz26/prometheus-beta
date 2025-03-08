@@ -24,19 +24,11 @@ def find_palindrome_substrings(s):
     palindromes = set()
     
     # Check all possible substrings
-    for i in range(len(s)):
-        # Odd length palindromes
-        left, right = i, i
-        while left >= 0 and right < len(s) and s[left] == s[right]:
-            palindromes.add(s[left:right+1])
-            left -= 1
-            right += 1
-        
-        # Even length palindromes
-        left, right = i, i+1
-        while left >= 0 and right < len(s) and s[left] == s[right]:
-            palindromes.add(s[left:right+1])
-            left -= 1
-            right += 1
+    for start in range(len(s)):
+        for end in range(start, len(s)):
+            substring = s[start:end+1]
+            # Check if substring is a palindrome
+            if substring == substring[::-1]:
+                palindromes.add(substring)
     
-    return list(sorted(palindromes, key=len))
+    return list(sorted(palindromes, key=lambda x: (len(x), x)))
