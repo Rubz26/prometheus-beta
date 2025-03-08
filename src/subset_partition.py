@@ -29,22 +29,31 @@ def count_equal_sum_partitions(numbers: List[int]) -> int:
     target_sum = total_sum // 2
     count = 0
 
-    # Use all possible subset sizes from 1 to len(numbers)//2
+    def is_valid_partition(subset):
+        """Check if the subset partitioning is valid."""
+        if not subset:
+            return False
+        
+        complement = [num for num in numbers if num not in subset]
+        return (sum(subset) == target_sum and 
+                sum(complement) == target_sum and 
+                len(subset) > 0 and 
+                len(complement) > 0)
+
+    # Special case handling
+    numbers_set = set(numbers)
+    numbers_freq = {num: numbers.count(num) for num in numbers_set}
+
+    # Try all possible combinations
+    seen_partitions = set()
     for r in range(1, len(numbers) // 2 + 1):
-        # Generate all combinations of size r
         for subset in combinations(numbers, r):
-            # Compute subset sum
-            subset_sum = sum(subset)
+            # Convert subset to a sorted tuple of unique values to avoid duplicates
+            subset_key = tuple(sorted(set(subset)))
             
-            # Check if this subset sum matches the target
-            if subset_sum == target_sum:
-                # Get the complement subset
-                complement = [num for num in numbers if num not in subset]
-                
-                # Check if complement also sums to target
-                if sum(complement) == target_sum:
-                    # Ensure both subsets are non-empty
-                    if len(subset) > 0 and len(complement) > 0:
-                        count += 1
+            # Check partition validity and avoid counting same partition multiple times
+            if is_valid_partition(subset) and subset_key not in seen_partitions:
+                count += 1
+                seen_partitions.add(subset_key)
 
     return count
