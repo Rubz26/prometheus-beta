@@ -3,25 +3,22 @@ from itertools import combinations
 
 def count_equal_sum_partitions(numbers: List[int]) -> int:
     """
-    Calculate the number of ways a group of distinct numbers can be partitioned 
+    Calculate the number of ways a group of numbers can be partitioned 
     into two subsets with equal sums.
 
     Args:
-        numbers (List[int]): A list of distinct integers to partition.
+        numbers (List[int]): A list of integers to partition.
 
     Returns:
         int: The number of ways the numbers can be partitioned into two subsets 
              with equal total sums.
 
     Raises:
-        ValueError: If the input list is empty or contains duplicate values.
+        ValueError: If the input list is empty.
     """
     # Validate input
     if not numbers:
         raise ValueError("Input list cannot be empty")
-    
-    if len(set(numbers)) != len(numbers):
-        raise ValueError("Input list must contain distinct numbers")
 
     total_sum = sum(numbers)
     
